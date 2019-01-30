@@ -32,8 +32,6 @@ public class DataConversionUtil {
 	public static ClientGamePoints parseResponse(String response) {
 		ClientGamePoints clientGamePoints = new ClientGamePoints();
 		
-		// we have token first
-		
         Pattern p = Pattern.compile("\\d+");
         String[] subs = response.split("\"token\":");
         String token = subs[1].substring(subs[1].indexOf("\"")+1);
@@ -41,7 +39,6 @@ public class DataConversionUtil {
         token = token.substring(0, token.indexOf("\""));
         clientGamePoints.setToken(token);
         
-        System.out.println("token: " + token);
         Matcher m = p.matcher(subs[0]);
         List<Integer> intList = new ArrayList<Integer>();
         while(m.find()) {

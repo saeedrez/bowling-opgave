@@ -13,6 +13,11 @@ import com.skat.model.ResultForm;
 import com.skat.model.VerificationResult;
 import com.skat.utils.DataConversionUtil;
 
+/**
+ * Rest client for connections to skat
+ * @author Saeed Rezaiyeh
+ * Version 1.0
+ */
 public class SkatClient {
 
 	private Client client;
@@ -24,28 +29,23 @@ public class SkatClient {
 
 	public GamePoints getPoints() {
 		WebTarget endpoint = client.target(SKAT_POINTS_ENDPOINT_URL);
-		System.out.println("==> PointsCLient before get...");
-//		ClientGamePoints clientPoints = response.readEntity(ClientGamePoints.class);		
 		String response = endpoint.request(MediaType.APPLICATION_JSON)
 				.get(String.class);
-		System.out.println("==> PointsCLient after get...: " + response);
 		
 		return DataConversionUtil.convert(DataConversionUtil.parseResponse(response));
 	}
 
 	// submit result for verification
-	public VerificationResult submitResult(GamePoints gamePoints) {
+	public VerificationResult submitResult(GamePoints gamePoints) throws GameException {
 		WebTarget endpoint = client.target(SKAT_POINTS_ENDPOINT_URL);
-		System.out.println("==> PointsCLient before get...");
 
 		ResultForm resultForm = DataConversionUtil.getScores(gamePoints);
 		Response response = endpoint.request(MediaType.APPLICATION_JSON)
 				.post(Entity.entity(resultForm, MediaType.APPLICATION_JSON));
 		
 		if (response.getStatus() != 200) {
-			throw new GameException("Result verification failed: " + response.getStatus());
+			throw new GameException("Result verification failed: ", response.getStatus());
 		}
-		System.out.println("==> Verification result: " + response.getStatus());
 		return response.readEntity(VerificationResult.class);
 	}
 

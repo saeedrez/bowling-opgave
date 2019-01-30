@@ -243,7 +243,12 @@ public class MockGamePoints {
 		frame.getPoints().add(9);
 		frame.getPoints().add(2);			
 		gamePoints.getPoints().add(frame);
-		
+
+		frame = new Frame();
+		frame.getPoints().add(5);
+		frame.getPoints().add(2);			
+		gamePoints.getPoints().add(frame);
+
 		gamePoints.setToken("xY6jt41bP9sFL2mt5iBMBYOGxEdHZeJ4");
 		return gamePoints;	}	
 

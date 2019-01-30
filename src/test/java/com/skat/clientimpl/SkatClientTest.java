@@ -15,9 +15,9 @@ public class SkatClientTest {
 	@Test
 	public void testGetPoints() {
 		SkatClient client = new SkatClient();
-		GamePoints points = client.getPoints();
 		
-		System.out.println(points);
+		// should be mocked.
+		GamePoints points = client.getPoints();
 		
 		assertNotNull(points);
 	}
